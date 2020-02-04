@@ -4,24 +4,17 @@ from random import choice
 import sys
 import pdb
 
+
 def open_and_read_file(file_path):
-
-    # file = open(file_path)
-
-    with open(file_path) as f:
-        read_data = f.read()
-
-    
-
     """Take file path as string; return text as string.
-
     Takes a string that is a file path, opens the file, and turns
     the file's contents as one string of text.
     """
 
-    # your code goes here
+    with open(file_path) as f:
+        read_data = f.read()
 
-    return "Contents of your file as one long string"
+    return read_data
 
 
 def make_chains(text_string):
@@ -50,6 +43,27 @@ def make_chains(text_string):
     """
 
     chains = {}
+    words = text_string.split()
+
+    for i in range(len(words)-2):
+        word_pair = (words[i], words[i+1])
+        next_word = words[i+2]
+
+        # chains.get(word_pair, [])
+
+        if word_pair not in chains:
+            chains[word_pair] = [next_word]
+        elif word_pair in chains:
+            chains[word_pair] = chains[word_pair] + [next_word]
+
+        # if new_key is not in dictionary:
+        # Add word_pair to dictionary. Add next_word as value.
+
+        # if word_pair is in dictionary:
+        # Add next_word to value list
+
+    # create a tuple of word[o], word[1]
+    # add key = (word[0], word[1]) to dictionary with value = word[2]
 
     # your code goes here
 
