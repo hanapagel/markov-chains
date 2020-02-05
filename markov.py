@@ -60,7 +60,7 @@ def make_chains(text_string):
 def make_text(chains):
     """Return text from chains."""
 
-    chains = make_chains(open_and_read_file("gettysburg.txt"))
+    chains = make_chains(open_and_read_file(sys.argv[1]))
 
     words = []
 
