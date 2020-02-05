@@ -2,7 +2,6 @@
 
 from random import choice
 import sys
-import pdb
 
 
 def open_and_read_file(file_path):
@@ -13,6 +12,8 @@ def open_and_read_file(file_path):
 
     with open(file_path) as f:
         read_data = f.read()
+
+    # read_data = open(file_path).read()
 
     return read_data
 
@@ -37,7 +38,6 @@ def make_chains(text_string):
 
         >>> chains[('hi', 'there')]
         ['mary', 'juanita']
-        
         >>> chains[('there','juanita')]
         [None]
     """
@@ -49,23 +49,10 @@ def make_chains(text_string):
         word_pair = (words[i], words[i+1])
         next_word = words[i+2]
 
-        # chains.get(word_pair, [])
-
         if word_pair not in chains:
             chains[word_pair] = [next_word]
         elif word_pair in chains:
             chains[word_pair] = chains[word_pair] + [next_word]
-
-        # if new_key is not in dictionary:
-        # Add word_pair to dictionary. Add next_word as value.
-
-        # if word_pair is in dictionary:
-        # Add next_word to value list
-
-    # create a tuple of word[o], word[1]
-    # add key = (word[0], word[1]) to dictionary with value = word[2]
-
-    # your code goes here
 
     return chains
 
@@ -73,10 +60,30 @@ def make_chains(text_string):
 def make_text(chains):
     """Return text from chains."""
 
+    chains = make_chains(open_and_read_file("gettysburg.txt"))
+
     words = []
 
-    # your code goes here
+    # create a list of all key in dicstionary
+    all_keys = []
+    for key in chains.keys():
+        all_keys.append(key)
 
+    # Pick a random key and initialize a list
+    key = choice(all_keys)
+    words = [key[0], key[1]]
+
+    # Pick random word from key value, add it to sentence.
+    while key in chains:
+        random_word = choice(chains[key])
+        key = (key[1], random_word)
+
+        words = words + [random_word]
+
+        if random_word is None:
+            break
+
+    # convert list into a string
     return " ".join(words)
 
 
